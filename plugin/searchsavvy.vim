@@ -23,19 +23,23 @@ if !exists("g:searchsavvy_no_ampersand_mappings") || !g:searchsavvy_no_ampersand
     " Let g& work how I'd expect on visual selections (only act on the visual
     " selection). Different from && because it uses the current search query.
     xnoremap g& :s//~/&<CR>
-    " I always want to re-use flags. If I change my mind, I can use :&
-    nnoremap & :&&<CR>
+    if !exists("g:searchsavvy_no_ampersand_builtin_changes")
+        " I always want to re-use flags. If I change my mind, I can use :&
+        nnoremap & :&&<CR>
+    endif
 endif
 
-if !exists("g:searchsavvy_no_mappings") || !g:searchsavvy_no_mappings
-    " Quickly toggle between whole word and not whole word search.
-    nnoremap <Leader>/ :call searchsavvy#ToggleWholeWord()<CR>n
+" Quickly toggle between whole word and not whole word search.
+nnoremap <Plug>(searchsavvy-toggle-whole-word) :call searchsavvy#ToggleWholeWord()<CR>n
+" Search within visual block.
+nnoremap <Plug>(searchsavvy-visual-block-search) <Esc>/\%V
+" Start a grep for current query.
+nnoremap <Plug>(searchsavvy-grep-current) :grep -e "<C-r>=searchsavvy#GrepCurrentQuery()<CR>" *
 
-    " Search within visual block.
-    xnoremap <Leader>/ <Esc>/\%V
-
-    " Start a grep for current query.
-    nnoremap <Leader>* :grep -e "<C-r>=searchsavvy#GrepCurrentQuery()<CR>" *
+if !exists("g:searchsavvy_no_leader_mappings") || !g:searchsavvy_no_leader_mappings
+    nmap <Leader>/ <Plug>(searchsavvy-toggle-whole-word)
+    xmap <Leader>/ <Plug>(searchsavvy-visual-block-search)
+    nmap <Leader>* <Plug>(searchsavvy-grep-current)
 endif
 
 command! -range=% ClearAllButMatches <line1>,<line2>call searchsavvy#ClearAllButMatches()
