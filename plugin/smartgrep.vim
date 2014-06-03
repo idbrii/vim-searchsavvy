@@ -6,6 +6,10 @@ if exists('loaded_smartgrep_grep') || &cp || version < 700
 endif
 let loaded_smartgrep_grep = 1
 
+if !exists("g:searchsavvy_smartgrep_auto_enable")
+    let g:searchsavvy_smartgrep_auto_enable = 1
+endif
+
 " Use GREP_OPTIONS within vim. Can't use it globally or it breaks things. If
 " it breaks things within vim, then you can use SmartGrepToggle to turn it
 " back off.
@@ -42,7 +46,10 @@ if executable('grep')
             return 'grep: basic'
         endif
     endfunction
-    call SmartGrepToggle(1)
+
+    if g:searchsavvy_smartgrep_auto_enable
+        call SmartGrepToggle(1)
+    endif
     command! SmartGrepToggle echo SmartGrepToggle()
 else
     " If grep isn't installed, then use vimgrep instead of falling back on 
