@@ -31,11 +31,11 @@ if !exists("g:searchsavvy_no_mappings") || !g:searchsavvy_no_mappings
     " Quickly toggle between whole word and not whole word search.
     nnoremap <Leader>/ :call searchsavvy#ToggleWholeWord()<CR>n
 
-    " Search within visual block
+    " Search within visual block.
     xnoremap <Leader>/ <Esc>/\%V
 
-    " Easy grep for current query
-    nnoremap <Leader>* :grep -e "<C-r>/" *
+    " Start a grep for current query.
+    nnoremap <Leader>* :grep -e "<C-r>=searchsavvy#GrepCurrentQuery()<CR>" *
 endif
 
 command! -range=% ClearAllButMatches <line1>,<line2>call searchsavvy#ClearAllButMatches()

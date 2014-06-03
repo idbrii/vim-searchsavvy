@@ -13,6 +13,18 @@ function! searchsavvy#ToggleWholeWord()
     let @/ = search
 endfunction
 
+" Easy grep for current query.
+"
+" If notgrep is installed, will use its conversion to prevent invalid grep
+" expressions.
+function! searchsavvy#GrepCurrentQuery()
+    if exists('g:notgrep_loaded') && g:notgrep_loaded
+        return notgrep#search#ConvertRegexVimToPerl(@/)
+    else
+        return @/
+    endif
+endfunction
+
 " Remove all text except what matches the current search result. Will put each
 " match on its own line. This is the opposite of :%s///g (which clears all
 " instances of the current search).
