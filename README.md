@@ -33,7 +33,10 @@ SearchForAnyLine command
 Extend/improve mappings to do what you expect
 =============================================
 Searching
-* Visual `g*` and `g#` to search for selected text. (Disable with `g:searchsavvy_no_g_mappings`.)
+* Visual `g*` and `g#` to search for selected text. (Similar to
+  [vim-visual-star-search](https://github.com/nelstrom/vim-visual-star-search)
+  but allows you to use `*` in visual mode as normal. Disable with
+  `g:searchsavvy_no_g_mappings`.)
 
 * Search within a visual block with `<Leader>/` or customize with
   `<Plug>(searchsavvy-visual-block-search)`.
