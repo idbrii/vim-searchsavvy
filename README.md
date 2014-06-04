@@ -1,8 +1,8 @@
 vim-searchsavvy
 ===============
 
-Smart grep options to optimize your grepping
-============================================
+Smarter/faster grep options
+===============================
 "Smart grep" will ignore irrelevant files to make your search faster, but uses
 your system's grep. If you don't have grep installed, it will use vim's
 internal grep.
@@ -18,7 +18,7 @@ Search tools to help you find
 =============================
 ToggleWholeWord mapping
 * Quickly switch between whole-word matching without re-entering your query
-  (ever use `*` when you meant to do `g*~?). Default maps to `<Leader>/` or
+  (ever use `*` when you meant to do `g*`?). Default maps to `<Leader>/` or
   customize with `<Plug>(searchsavvy-toggle-whole-word)`.
 
 ClearAllButMatches command
@@ -33,12 +33,12 @@ SearchForAnyLine command
 Extend/improve mappings to do what you expect
 =============================================
 Searching
-* Visual `g\*` and `g#` to search for selected text. (Disable with g:searchsavvy_no_g_mappings.)
+* Visual `g*` and `g#` to search for selected text. (Disable with `g:searchsavvy_no_g_mappings`.)
 
 * Search within a visual block with `<Leader>/` or customize with
   `<Plug>(searchsavvy-visual-block-search)`.
 
-* Grep for current search query with `<Leader>\*` or customize with
+* Grep for current search query with `<Leader>*` or customize with
   `<Plug>(searchsavvy-grep-current)`.
 
 Substituting
