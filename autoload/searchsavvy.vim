@@ -63,3 +63,25 @@ function! searchsavvy#SearchForAnyLine() range
     " as a list instead.
     normal! un
 endf
+
+" Searches for selection with some escaping
+"
+" Add leading \V to prevent magic (ignore embedded *, etc), convert newlines,
+" escape backslash, and escape search direction character (/ or ?).
+function! searchsavvy#search_for_selection(search_cmd)
+    let clobber = @c
+
+    normal! gv"cy
+    let query = @c
+    let query = escape(query, a:search_cmd . '\')
+
+    " Why doesn't this work? It just replaces it with a literal newline
+    "let query = substitute(query, "\n", "\\n", "g")
+    " Instead, let's do it the dumb way.
+    let query = join(split(query, "\n", 1), "\\n")
+
+    let @/ = '\V'. query
+
+    let @c = clobber
+endf
+

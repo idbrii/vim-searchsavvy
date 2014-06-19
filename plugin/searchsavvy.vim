@@ -12,9 +12,8 @@ endif
 
 if !exists("g:searchsavvy_no_g_mappings") || !g:searchsavvy_no_g_mappings
     " * and # search for next/previous of selected text when used in visual mode.
-    " Add leading \V to prevent magic and escape \ and either / or ?
-    xnoremap g* y/\V<C-R>=escape(@", '/\')<CR><CR>
-    xnoremap g# y?\V<C-R>=escape(@", '?\')<CR><CR>
+    xnoremap g* :<C-u>call searchsavvy#search_for_selection('/')<CR>n
+    xnoremap g# :<C-u>call searchsavvy#search_for_selection('?')<Bar>let v:searchforward = 0<CR>n
 endif
 
 if !exists("g:searchsavvy_no_ampersand_mappings") || !g:searchsavvy_no_ampersand_mappings
