@@ -51,17 +51,27 @@ endfunction
 " Create a query out of selected lines. You can use ToggleWholeWord to turn
 " off whole word.
 function! searchsavvy#SearchForAnyLine() range
-    let n_lines = a:lastline - a:firstline
+    " Slurp up all lines.
+    let search_lines = []
+    exec a:firstline .','. a:lastline ."call add(search_lines, getline('.'))"
 
-    " Replace newlines with bar
-    exec a:firstline .','. a:lastline .'s/\n/\\|/g'
-    " Remove trailing bar
-    exec a:firstline .','. a:firstline .'s/\\|$/'
+    " Uniquify (so we don't have the same search query multiple times).
+    let search_keys = {}
+    for line in search_lines
+        " Exclude blank lines.
+        if len(line) > 0
+            " Escape \ to ensure they're parsed correctly.
+            let search_keys[line] = escape(line, '\')
+        endif
+    endfor
 
-    let @/ = '\<\('. getline(a:firstline) .'\)\>'
-    " Undo our changes. TODO: Should probably slurp up lines and modify them
-    " as a list instead.
-    normal! un
+    " Join them with OR.
+    let query = join(values(search_keys), '\|')
+
+    " Use very no magic to match the exact text.
+    let @/ = '\<\V\('. query .'\)\>'
+    " Find next match.
+    normal! n
 endf
 
 " Searches for selection with some escaping
