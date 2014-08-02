@@ -74,3 +74,15 @@ Disable at will
 Additional options to disable parts of searchsavvy:
 * g:searchsavvy_no_leader_mappings
 * g:searchsavvy_no_ampersand_mappings
+
+
+Thanks
+======
+
+* Peter Rincker for [helping implement ClearAllButMatches](http://stackoverflow.com/a/4521486/79125).
+* scrooloose for [inspiring multiple visual star search plugins](http://got-ravings.blogspot.ca/2008/07/vim-pr0n-visual-search-mappings.html).
+* Arabesque for [introducing me to GREP_OPTIONS](http://blog.sanctum.geek.nz/default-grep-options/),
+  the many [threads](http://archive.today/fg7me) detailing the problems with GREP_OPTIONS,
+  and Andy Lester for [ack](http://beyondgrep.com/)
+  -- all helped me develop "smart grep".
+
