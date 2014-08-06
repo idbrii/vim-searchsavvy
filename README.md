@@ -29,6 +29,9 @@ SearchForAnyLine command
 * Select text and use this command to create a search query for any of the
   selected lines. Works well with ToggleWholeWord.
 
+BufGrep and ArgGrep commands
+* Search through all open buffers or all files in the arglist and see the
+  results in your quickfix -- just like :grep.
 
 Extend/improve mappings to do what you expect
 =============================================
