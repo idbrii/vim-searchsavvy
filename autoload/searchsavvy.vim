@@ -113,8 +113,14 @@ function! searchsavvy#ListGrep(list, query)
 	" to the next buffer anyway.
 	exec 'noautocmd '. a:list .'do if !bufname("%") | silent! vimgrepadd/' . a:query . '/gj % | endif'
 
-	" Go back to start point
-	exec save_bufnr . 'buffer'
+    " See if our start point still exists.
+    if bufexists(save_bufnr)
+        " Go back to start point.
+        exec save_bufnr . 'buffer'
+    else
+        " Assume buffer was the (often invalidated) quickfix and open that.
+        copen
+    endif
 
 	let &lazyredraw = save_lazyredraw
 endfunction
