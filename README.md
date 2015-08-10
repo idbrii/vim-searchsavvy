@@ -1,6 +1,8 @@
 vim-searchsavvy
 ===============
 
+No longer uses GREP_OPTIONS to support grep 2.20!
+
 Smarter/faster grep options
 ===============================
 "Smart grep" will ignore irrelevant files to make your search faster, but uses
@@ -78,6 +80,13 @@ Additional options to disable parts of searchsavvy:
 * g:searchsavvy_no_leader_mappings
 * g:searchsavvy_no_ampersand_mappings
 
+
+External grep script
+====================
+
+You can use the bin/smartgrep script from the shell:
+
+	alias gs='~/.vim/bundle/searchsavvy/bin/smartgrep'
 
 Thanks
 ======
