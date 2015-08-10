@@ -1,5 +1,4 @@
-:: batch
-grep --binary-files=without-match ^
+@grep --binary-files=without-match ^
 	--exclude-dir=.cvs ^
 	--exclude-dir=.git ^
 	--exclude-dir=.hg ^
