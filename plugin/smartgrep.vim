@@ -42,9 +42,7 @@ if executable('grep')
         endif
     endfunction
 
-    if g:searchsavvy_smartgrep_auto_enable
-        call SmartGrepToggle(1)
-    endif
+    call SmartGrepToggle(g:searchsavvy_smartgrep_auto_enable)
     command! SmartGrepToggle echo SmartGrepToggle()
 else
     " If grep isn't installed, then use vimgrep instead of falling back on 
