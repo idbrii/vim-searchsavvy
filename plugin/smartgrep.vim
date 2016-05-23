@@ -33,7 +33,7 @@ if executable('grep')
     " these, then toggle off intelligence. Pass 1 to force smartness.
     function! SmartGrepToggle(...)
         let force_on = a:0 && a:1
-        if force_on
+        if force_on || &grepprg != s:smart_grepprg
             let &grepprg = s:smart_grepprg
             return 'grep: smart'
         else
