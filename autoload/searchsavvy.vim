@@ -104,6 +104,7 @@ function! searchsavvy#ListGrep(list, query)
 	" We want to end back at the same point that we started from, so save that
 	" buffer.
 	let save_bufnr = bufnr('%')
+	let g:test_searchsavvy_not_returning_to_buf = save_bufnr
 
 	" Clear the quickfix -- we're adding to it so we want it to start empty
 	call setqflist([])
