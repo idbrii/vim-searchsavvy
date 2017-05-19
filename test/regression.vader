@@ -1,0 +1,11 @@
+# Issue #4
+Given (text):
+  This is one stupid example
+
+Do (search for two strings and Clear):
+  /\(stupid\)\|\(example\)\<Enter>
+  :ClearAllButMatches\<Enter>
+
+Expect (both matches):
+  stupid
+  example
