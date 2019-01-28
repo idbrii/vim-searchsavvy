@@ -8,4 +8,5 @@ grep --binary-files=without-match \
 	--exclude=cscope.* \
 	--exclude=filelist \
 	--exclude=tags \
+	--exclude=*.tags \
 	$*

@@ -7,4 +7,5 @@
 	--exclude=cscope.* ^
 	--exclude=filelist ^
 	--exclude=tags ^
+	--exclude=*.tags ^
 	%*
