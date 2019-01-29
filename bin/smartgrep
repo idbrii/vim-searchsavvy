@@ -1,4 +1,5 @@
 #! /bin/sh
+
 grep --binary-files=without-match \
 	--exclude-dir=.cvs \
 	--exclude-dir=.git \
@@ -9,4 +10,4 @@ grep --binary-files=without-match \
 	--exclude=filelist \
 	--exclude=tags \
 	--exclude=*.tags \
-	$*
+	"$@"
