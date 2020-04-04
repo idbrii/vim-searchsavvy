@@ -31,7 +31,13 @@ function! searchsavvy#GetGrepCommand(query)
         " expression). ripgrep doesn't expand *, but it's also recursive by
         " default, so pass cwd for clarity instead. Would expand cwd, but then
         " it becomes too much noise.
-        return printf('silent grep "%s" .', a:query)
+        let flags = ''
+        if &smartcase
+            let flags = '--smart-case'
+        elseif &ignorecase
+            let flags = '--ignore-case'
+        endif
+        return printf('silent grep %s "%s" .', flags, a:query)
     endif
     return 'silent grep -Ee "'. a:query .'" *'
 endf
