@@ -25,6 +25,17 @@ function! searchsavvy#GrepCurrentQuery()
     endif
 endfunction
 
+function! searchsavvy#GetGrepCommand(query)
+    if &grepprg =~# '\v<(rg|ack|ag)(\.exe)?>'
+        " ripgrep and friends don't accept -E (extended regex) and -e (search
+        " expression). ripgrep doesn't expand *, but it's also recursive by
+        " default, so pass cwd for clarity instead. Would expand cwd, but then
+        " it becomes too much noise.
+        return printf('silent grep "%s" .', a:query)
+    endif
+    return 'silent grep -Ee "'. a:query .'" *'
+endf
+
 " Remove all text except what matches the current search result. Will put each
 " match on its own line. This is the opposite of :%s///g (which clears all
 " instances of the current search).

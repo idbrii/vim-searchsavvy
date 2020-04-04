@@ -34,7 +34,7 @@ nnoremap <Plug>(searchsavvy-toggle-whole-word) :call searchsavvy#ToggleWholeWord
 xnoremap <Plug>(searchsavvy-visual-block-search) <Esc>/\%V
 nnoremap <Plug>(searchsavvy-visual-block-search) <Esc>/\%V
 " Start a grep for current query.
-nnoremap <Plug>(searchsavvy-grep-current) :grep -Ee "<C-r>=searchsavvy#GrepCurrentQuery()<CR>" *
+nnoremap <Plug>(searchsavvy-grep-current) :<C-r>=searchsavvy#GetGrepCommand(searchsavvy#GrepCurrentQuery())<CR>
 
 if !exists("g:searchsavvy_no_leader_mappings") || !g:searchsavvy_no_leader_mappings
     nmap <Leader>/ <Plug>(searchsavvy-toggle-whole-word)
