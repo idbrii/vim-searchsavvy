@@ -1,0 +1,13 @@
+Before:
+  " Not enabled by default, so turn it on and reload the code. Won't have much
+  " effect with smartcase enabled, so turn that off and prevent searchsavvy
+  " from turning it back on.
+  let g:searchsavvy_no_defaults = 1
+  set nosmartcase
+  let g:searchsavvy_always_case_sensitive_star = 1
+  runtime plugin/searchsavvy.vim
+
+" Run our casesensitive test which would fail if we didn't force everything to
+" be case sensitive.
+Include: casesensitive-common.vader
+

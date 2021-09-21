@@ -142,3 +142,40 @@ function! searchsavvy#ListGrep(list, query)
 	let &lazyredraw = save_lazyredraw
 endfunction
 
+
+" Case-sensitive */# -- pairs well with smartcase.
+" https://vi.stackexchange.com/q/4054/2045
+function! searchsavvy#SearchCword(wholeword, direction, casesensitive) abort
+    let cword = expand('<cword>')
+    let query = cword
+    if empty(query)
+        call searchsavvy#error("E348: No string under cursor")
+        return ""
+    endif
+    " Doing * on a nonword character at end of line produces no word
+    " characters so wholeword is invalid.
+    if a:wholeword && query =~# '\w'
+        let query = '\<'.. query ..'\>'
+    endif
+    if a:casesensitive
+        let query .= '\C'
+    endif
+    let @/ = query
+    if a:direction ==# 'n' || s:IsCursorAtStartOfWord(cword)
+        return a:direction
+    endif
+    return a:direction..a:direction
+endf
+
+function! s:IsCursorAtStartOfWord(query) abort
+    let index_in_word = match(getline('.'), '\%' . col('.') ..'c'.. a:query)
+    return index_in_word > 0
+endf
+
+
+
+function! searchsavvy#error(msg)
+    echohl ErrorMsg
+    echomsg a:msg
+    echohl None
+endf

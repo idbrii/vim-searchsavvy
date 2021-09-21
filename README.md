@@ -37,11 +37,19 @@ BufGrep and ArgGrep commands
 
 Extend/improve mappings to do what you expect
 =============================================
-Searching
+### Searching
 * Visual `g*` and `g#` to search for selected text. (Similar to
   [vim-visual-star-search](https://github.com/nelstrom/vim-visual-star-search)
   but allows you to use `*` in visual mode as normal. Disable with
   `g:searchsavvy_no_g_mappings`.)
+
+* When using 'smartcase', `\*`/`#`/`g\*`/`g#` follow smartcase's
+  case-sensitivity rules. Use `let g:searchsavvy_no_smartcase_star = 1` to
+  disable.
+
+* Use `let g:searchsavvy_always_case_sensitive_star = 1` to make
+  `\*`/`#`/`g\*`/`g#` always case-sensitive, regardless of 'ignorecase' and
+  'smartcase' settings.
 
 * Search within a visual block with `<Leader>/` or customize with
   `<Plug>(searchsavvy-visual-block-search)`.
@@ -49,7 +57,7 @@ Searching
 * Grep for current search query with `<Leader>*` or customize with
   `<Plug>(searchsavvy-grep-current)`.
 
-Substituting
+### Substituting
 * Visual `&&` to do `:&&` on selected text (repeat last substitute with the same flags).
 
 * Make `g&` work how you'd expect on visual selections: only act on the visual

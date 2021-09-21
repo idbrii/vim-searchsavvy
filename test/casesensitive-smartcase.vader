@@ -1,0 +1,48 @@
+Before:
+  " Setup clean configuration.
+  let g:searchsavvy_no_defaults = 0
+  let g:searchsavvy_always_case_sensitive_star = 0
+  runtime plugin/searchsavvy.vim
+  set smartcase
+
+Include: casesensitive-common.vader
+
+Execute (ensure vim is configured with searchsavvy defaults):
+  Assert &smartcase
+  Assert g:searchsavvy_always_case_sensitive_star == 0
+  Assert !empty(maparg('*', 'n'))
+  Assert !empty(maparg('#', 'n'))
+
+Given (quickfix contents):
+  \code\proj\src\p.lua|143 col 39| if self.onclose then self:onclose() end
+  \code\proj\src\r.lua|174 col 7| self:OnCloseWindow(inspector)
+  \code\proj\src\r.lua|200 col 20| function Menu:OnCloseWindow(window)
+  \code\proj\src\r.lua|206 col 11| window:OnClose()
+  \code\proj\src\r.lua|210 col 11| window:OnClose()
+
+Do (search for all lowercase word):
+  gg
+  f:l
+  g*
+  cwfound\<Esc>
+
+Expect (modified word is nonwhole word match):
+  \code\proj\src\p.lua|143 col 39| if self.onclose then self:onclose() end
+  \code\proj\src\r.lua|174 col 7| self:found(inspector)
+  \code\proj\src\r.lua|200 col 20| function Menu:OnCloseWindow(window)
+  \code\proj\src\r.lua|206 col 11| window:OnClose()
+  \code\proj\src\r.lua|210 col 11| window:OnClose()
+
+Do (search for all lowercase whole word):
+  gg
+  f:l
+  *
+  cwfound\<Esc>
+
+Expect (modified word is whole word match):
+  \code\proj\src\p.lua|143 col 39| if self.onclose then self:onclose() end
+  \code\proj\src\r.lua|174 col 7| self:OnCloseWindow(inspector)
+  \code\proj\src\r.lua|200 col 20| function Menu:OnCloseWindow(window)
+  \code\proj\src\r.lua|206 col 11| window:found()
+  \code\proj\src\r.lua|210 col 11| window:OnClose()
+

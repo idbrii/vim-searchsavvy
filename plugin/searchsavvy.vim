@@ -36,6 +36,18 @@ nnoremap <Plug>(searchsavvy-visual-block-search) <Esc>/\%V
 " Start a grep for current query.
 nnoremap <Plug>(searchsavvy-grep-current) :<C-r>=searchsavvy#GetGrepCommand(searchsavvy#GrepCurrentQuery())<CR>
 
+" Make */# case sensitive even when using 'ignorecase' or 'smartcase'.
+let g:searchsavvy_always_case_sensitive_star = get(g:, "searchsavvy_always_case_sensitive_star", 0)
+
+if g:searchsavvy_always_case_sensitive_star || (&smartcase && !get(g:, "searchsavvy_no_smartcase_star", 0))
+    " If searchsavvy_always_case_sensitive_star is set, always match case.
+    " Otherwise, make * and friends follow smartcase's case rules.
+    nnoremap <expr>  * searchsavvy#SearchCword(1, "n", g:searchsavvy_always_case_sensitive_star)
+    nnoremap <expr>  # searchsavvy#SearchCword(1, "N", g:searchsavvy_always_case_sensitive_star)
+    nnoremap <expr> g* searchsavvy#SearchCword(0, "n", g:searchsavvy_always_case_sensitive_star)
+    nnoremap <expr> g# searchsavvy#SearchCword(0, "N", g:searchsavvy_always_case_sensitive_star)
+endif
+
 if !exists("g:searchsavvy_no_leader_mappings") || !g:searchsavvy_no_leader_mappings
     nmap <Leader>/ <Plug>(searchsavvy-toggle-whole-word)
     " Don't expose nmap for block because it's just kept for legacy reasons.

@@ -1,0 +1,59 @@
+# Tests searches include uppercase letters. Relevant for smartcase and always
+# case-sensitive.
+
+Given (quickfix contents):
+  \code\proj\src\ow.lua|15 col 22| function Window:OnClose()
+  \code\proj\src\p.lua|143 col 21| if self.onclose then self:onclose() end
+  \code\proj\src\p.lua|143 col 39| if self.onclose then self:onclose() end
+  \code\proj\src\r.lua|174 col 7| self:OnCloseWindow(inspector)
+  \code\proj\src\r.lua|200 col 20| function Menu:OnCloseWindow(window)
+  \code\proj\src\r.lua|206 col 11| window:OnClose()
+  \code\proj\src\r.lua|210 col 11| window:OnClose()
+
+Do (search for word):
+  gg
+  f:l
+  g*
+  cwfound\<Esc>
+
+Expect (modified word is nonwhole word match):
+  \code\proj\src\ow.lua|15 col 22| function Window:OnClose()
+  \code\proj\src\p.lua|143 col 21| if self.onclose then self:onclose() end
+  \code\proj\src\p.lua|143 col 39| if self.onclose then self:onclose() end
+  \code\proj\src\r.lua|174 col 7| self:found(inspector)
+  \code\proj\src\r.lua|200 col 20| function Menu:OnCloseWindow(window)
+  \code\proj\src\r.lua|206 col 11| window:OnClose()
+  \code\proj\src\r.lua|210 col 11| window:OnClose()
+
+Do (search for whole word):
+  gg
+  f:l
+  *
+  cwfound\<Esc>
+
+Expect (modified word is whole word match):
+  \code\proj\src\ow.lua|15 col 22| function Window:OnClose()
+  \code\proj\src\p.lua|143 col 21| if self.onclose then self:onclose() end
+  \code\proj\src\p.lua|143 col 39| if self.onclose then self:onclose() end
+  \code\proj\src\r.lua|174 col 7| self:OnCloseWindow(inspector)
+  \code\proj\src\r.lua|200 col 20| function Menu:OnCloseWindow(window)
+  \code\proj\src\r.lua|206 col 11| window:found()
+  \code\proj\src\r.lua|210 col 11| window:OnClose()
+
+Do (reverse search for whole word and not whole word):
+  gg
+  f:l
+  #
+  cwLAST_WW\<Esc>
+  N2g#
+  cwfound\<Esc>
+
+Expect (modified words match):
+  \code\proj\src\ow.lua|15 col 22| function Window:OnClose()
+  \code\proj\src\p.lua|143 col 21| if self.onclose then self:onclose() end
+  \code\proj\src\p.lua|143 col 39| if self.onclose then self:onclose() end
+  \code\proj\src\r.lua|174 col 7| self:found(inspector)
+  \code\proj\src\r.lua|200 col 20| function Menu:OnCloseWindow(window)
+  \code\proj\src\r.lua|206 col 11| window:OnClose()
+  \code\proj\src\r.lua|210 col 11| window:LAST_WW()
+
