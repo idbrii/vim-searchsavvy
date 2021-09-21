@@ -161,10 +161,17 @@ function! searchsavvy#SearchCword(wholeword, direction, casesensitive) abort
         let query .= '\C'
     endif
     let @/ = query
-    if a:direction ==# 'n' || s:IsCursorAtStartOfWord(cword)
-        return a:direction
+    let searchforward = a:direction ==# 'n'
+    let suffix = ''
+    if !searchforward
+        " v:searchforward is reset after functions so it must be part of our
+        " returned command.
+        let suffix = ":silent let v:searchforward=0\<CR>"
     endif
-    return a:direction..a:direction
+    if searchforward || s:IsCursorAtStartOfWord(cword)
+        return a:direction .. suffix
+    endif
+    return a:direction .. a:direction .. suffix
 endf
 
 function! s:IsCursorAtStartOfWord(query) abort
