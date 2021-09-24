@@ -20,7 +20,7 @@ if !exists("g:searchsavvy_no_ampersand_mappings") || !g:searchsavvy_no_ampersand
     " Use && like :&&, but on visual selections.
     xnoremap && :&&<CR>
     " Let g& work how I'd expect on visual selections (only act on the visual
-    " selection). Different from && because it uses the current search query.
+    " selection). Different from && because this uses the current search query.
     xnoremap g& :s//~/&<CR>
     if !exists("g:searchsavvy_no_ampersand_builtin_changes")
         " I always want to re-use flags. If I change my mind, I can use :&
