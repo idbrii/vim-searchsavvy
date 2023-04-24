@@ -35,6 +35,9 @@ BufGrep and ArgGrep commands
 * Search through all open buffers or all files in the arglist and see the
   results in your quickfix -- just like :grep.
 
+StoreAndStartSearch() function
+* Save complex searches to your vimrc as commands that populate your history.
+
 Extend/improve mappings to do what you expect
 =============================================
 ### Searching
@@ -87,6 +90,7 @@ Disable at will
 Additional options to disable parts of searchsavvy:
 * g:searchsavvy_no_leader_mappings
 * g:searchsavvy_no_ampersand_mappings
+* g:searchsavvy_no_startsearch
 
 
 External grep script

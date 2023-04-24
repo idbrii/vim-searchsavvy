@@ -61,4 +61,12 @@ command! -range=% SearchForAnyLine <line1>,<line2>call searchsavvy#SearchForAnyL
 command! -nargs=+ BufGrep call searchsavvy#ListGrep('buf', <q-args>)
 command! -nargs=+ ArgGrep call searchsavvy#ListGrep('arg', <q-args>)
 
+if !exists("g:searchsavvy_no_startsearch") || !g:searchsavvy_no_startsearch
+    " Be sure to use 'single quotes' to reduce regex escaping.
+    " Search for a non zero integer. Count is maximum digits.
+    command! -bar -count=2 StartSearchIntegerNonZero exec searchsavvy#StoreAndStartSearch('\v[^.]\zs<[1-9]\d{0,<count>}>')
+    " Search for a float. Count is minimum digits before and after decimal.
+    command! -bar -count=2 StartSearchFloat          exec searchsavvy#StoreAndStartSearch('\v\zs<\d{1,<count>}\.\d{1,<count>}>')
+endif
+
 " vi: et sw=4 ts=4 fdm=marker fmr={{{,}}}

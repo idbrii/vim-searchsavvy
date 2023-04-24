@@ -180,6 +180,19 @@ function! s:IsCursorAtStartOfWord(query) abort
 endf
 
 
+" Start a search query that get saved into search cmdline-history.
+"
+" Work around function-search-undo by returning a command that puts the query
+" in history.
+function! searchsavvy#StoreAndStartSearch(query) abort
+    let @/ = a:query
+    " Neither command will jump, so issue manual jump and silence errors so
+    " they don't prevent populating history.
+    silent! normal! n
+    return "normal! /".. a:query
+endf
+
+
 
 function! searchsavvy#error(msg)
     echohl ErrorMsg
