@@ -55,11 +55,11 @@ if !exists("g:searchsavvy_no_leader_mappings") || !g:searchsavvy_no_leader_mappi
     nmap <Leader>* <Plug>(searchsavvy-grep-current)
 endif
 
-command! -range=% ClearAllButMatches <line1>,<line2>call searchsavvy#ClearAllButMatches()
-command! -range=% SearchForAnyLine <line1>,<line2>call searchsavvy#SearchForAnyLine()
+command! -range=% -bar ClearAllButMatches <line1>,<line2>call searchsavvy#ClearAllButMatches()
+command! -range=% -bar SearchForAnyLine <line1>,<line2>call searchsavvy#SearchForAnyLine()
 
-command! -nargs=+ BufGrep call searchsavvy#ListGrep('buf', <q-args>)
-command! -nargs=+ ArgGrep call searchsavvy#ListGrep('arg', <q-args>)
+command! -nargs=+ -bar BufGrep call searchsavvy#ListGrep('buf', <q-args>)
+command! -nargs=+ -bar ArgGrep call searchsavvy#ListGrep('arg', <q-args>)
 
 if !exists("g:searchsavvy_no_startsearch") || !g:searchsavvy_no_startsearch
     " Be sure to use 'single quotes' to reduce regex escaping.
